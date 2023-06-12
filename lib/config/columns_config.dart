@@ -54,6 +54,14 @@
     type: PlutoColumnType.text()
   ),
 
+  // PlutoColumn(
+  //   title: 'Treated',
+  //   field: 'treated_field',
+  //   type: PlutoColumnType.number(),
+  //   enableRowChecked: true,  // Enable checkbox
+  // ),
+
+
 
 
 ];
