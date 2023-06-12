@@ -17,7 +17,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Dmarc Flutter Viewer',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
   
         primarySwatch: Colors.blue,
@@ -39,7 +40,14 @@ class _HomePageState extends State<HomePage> {
 Widget build(BuildContext context) {
   return Scaffold(
     appBar: AppBar(
-      title: const Text('HQ DMARC'),
+      title: const Text('DMARC Viewer'),
+      actions: [
+        IconButton(onPressed: (){},
+        icon: Icon(Icons.settings),
+        ),
+
+        IconButton(onPressed: (){}, icon: Icon(Icons.help))
+      ],
     ),
     body: DmarcTable()
   );
