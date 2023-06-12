@@ -23,6 +23,7 @@ Future<List<PlutoRow>> fetchData() async {
     return data.map((item) {
       return PlutoRow(
         cells: {
+          'id_field' : PlutoCell(value: item['id']), 
           'ip_field': PlutoCell(value: item['ip'].toString()),
           'ipv6_field': PlutoCell(value: item['ip6'] != null ? item['ip6'].toString() : 'NULL'),
           'rcount_field': PlutoCell(value: item['rcount'].toString()),
@@ -70,10 +71,14 @@ Widget build(BuildContext context) {
             TextButton(
               child: Text('Delete'),
               onPressed: () {
+
                 http.delete(Uri.parse('http://82.165.240.99:80/rptrecord/${event.row.cells['id_field']?.value}'))
                 .then((http.Response response){
+
                   print('status code: ${response.statusCode}');
                   print('Body: ${response.body}');
+                  print('Deleting record with ID: ${event.row.cells['id_field']?.value}'); // Ajoutez cette ligne pour imprimer l'ID
+
                   Navigator.of(context).pop();
                   setState(() {});
 
