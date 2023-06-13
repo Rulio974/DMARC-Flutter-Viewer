@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:pluto_grid/pluto_grid.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'config/const_var.dart';
 
 import 'main.dart';
 
@@ -17,7 +18,7 @@ class DmarcTable extends StatefulWidget {
 
 class _DmarcTableState extends State<DmarcTable> {
   Future<List<PlutoRow>> fetchData() async {
-    final response = await http.get(Uri.parse("http://82.165.240.99:80"));
+    final response = await http.get(url);
 
     if (response.statusCode == 200) {
       List<dynamic> data = json.decode(response.body);
@@ -57,89 +58,109 @@ class _DmarcTableState extends State<DmarcTable> {
       builder: ((BuildContext context, AsyncSnapshot snapshot) {
         if (snapshot.hasData) {
           return Container(
-              margin: EdgeInsets.only(left: 10),
-              height: height,
-              width: width / 1.2,
-              decoration: BoxDecoration(color: Colors.white, boxShadow: [
-                BoxShadow(
-                  color: Colors.grey.withOpacity(0.2), // couleur de l'ombre
-                  spreadRadius: 5, // expansion de l'ombre
-                  blurRadius: 7, // flou de l'ombre
-                  offset: Offset(-5, 0), // décalage de l'ombre
-                )
-              ]),
+            margin: EdgeInsets.only(left: 10),
+            height: height,
+            width: width / 1.2,
+            decoration: BoxDecoration(color: Colors.white, boxShadow: [
+              BoxShadow(
+                color: Colors.grey.withOpacity(0.2),
+                spreadRadius: 5,
+                blurRadius: 7,
+                offset: const Offset(-5, 0),
+              )
+            ]),
+            child: Column(
+              children: [
+                Expanded(
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(15),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.3),
+                          spreadRadius: 7,
+                          blurRadius: 7,
+                        ),
+                      ],
+                    ),
+                    margin: EdgeInsets.all(width / 32),
+                    child: PlutoGrid(
+                      configuration: PlutoGridConfiguration(
+                        style: PlutoGridStyleConfig(
+                            activatedColor: hqYellowActivated,
+                            gridBorderColor: hqYellow,
+                            gridBorderRadius: BorderRadius.circular(15)),
+                      ),
+                      columns: columns,
+                      rows: snapshot.data!,
+                      onRowDoubleTap: (event) {
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              title: const Text('Confirmer la suppression'),
+                              content: const Text(
+                                  'Voulez vous vraiment supprimer cette entrée ?'),
+                              actions: <Widget>[
+                                TextButton(
+                                  style: ButtonStyle(
+                                      backgroundColor:
+                                          MaterialStateProperty.all<Color>(
+                                              Colors.red)),
+                                  child: const Text(
+                                    'Annuler',
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                ),
+                                TextButton(
+                                  child: const Text('Supprimer'),
+                                  onPressed: () {
+                                    http
+                                        .delete(Uri.parse(
+                                            'http://82.165.240.99:80/rptrecord/${event.row.cells['id_field']?.value}'))
+                                        .then(
+                                      (http.Response response) {
+                                        if (kDebugMode) {
+                                          print(
+                                              'status code: ${response.statusCode}');
+                                          print('Body: ${response.body}');
+                                          print(
+                                              'Deleting record with ID: ${event.row.cells['id_field']?.value}'); // Ajoutez cette ligne pour imprimer l'ID
+                                        }
 
-              // margin:
-              //     EdgeInsets.fromLTRB(width / 32, width / 20, width / 32, 0),
-              child: PlutoGrid(
-                configuration: const PlutoGridConfiguration(
-                  style: PlutoGridStyleConfig(
-                    gridBorderColor: Colors.blue,
-                    gridBorderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(15),
-                      topRight: Radius.circular(15),
+                                        Navigator.push(
+                                          context,
+                                          NoAnimationPageRoute(
+                                              builder: (context) => HomePage()),
+                                        );
+                                        setState(() {
+                                          fetchData();
+                                        });
+                                      },
+                                    ).catchError(
+                                      (error) {
+                                        if (kDebugMode) {
+                                          print('Error: $error');
+                                        }
+                                      },
+                                    );
+                                  },
+                                ),
+                              ],
+                            );
+                          },
+                        );
+                      },
                     ),
                   ),
-                ),
-                columns: columns,
-                rows: snapshot.data!,
-                onRowDoubleTap: (event) {
-                  showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return AlertDialog(
-                          title: const Text('Confirmer la suppression'),
-                          content: const Text(
-                              'Voulez vous vraiment supprimer cette entrée ?'),
-                          actions: <Widget>[
-                            TextButton(
-                              style: ButtonStyle(
-                                  backgroundColor:
-                                      MaterialStateProperty.all<Color>(
-                                          Colors.red)),
-                              child: const Text(
-                                'Annuler',
-                                style: TextStyle(color: Colors.white),
-                              ),
-                              onPressed: () {
-                                Navigator.of(context).pop();
-                              },
-                            ),
-                            TextButton(
-                              child: const Text('Supprimer'),
-                              onPressed: () {
-                                http
-                                    .delete(Uri.parse(
-                                        'http://82.165.240.99:80/rptrecord/${event.row.cells['id_field']?.value}'))
-                                    .then((http.Response response) {
-                                  if (kDebugMode) {
-                                    print(
-                                        'status code: ${response.statusCode}');
-                                    print('Body: ${response.body}');
-                                    print(
-                                        'Deleting record with ID: ${event.row.cells['id_field']?.value}'); // Ajoutez cette ligne pour imprimer l'ID
-                                  }
-
-                                  Navigator.push(
-                                    context,
-                                    NoAnimationPageRoute(
-                                        builder: (context) => HomePage()),
-                                  );
-                                  setState(() {
-                                    fetchData();
-                                  });
-                                }).catchError((error) {
-                                  if (kDebugMode) {
-                                    print('Error: $error');
-                                  }
-                                });
-                              },
-                            ),
-                          ],
-                        );
-                      });
-                },
-              ));
+                )
+              ],
+            ),
+          );
         } else if (snapshot.hasError) {
           return Text('${snapshot.error}');
         }

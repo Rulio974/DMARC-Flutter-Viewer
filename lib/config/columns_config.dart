@@ -4,10 +4,10 @@ import 'package:pluto_grid/pluto_grid.dart';
 List<PlutoColumn> columns = [
   /// Text Column definition
   PlutoColumn(
-    title: 'IP',
-    field: 'ip_field',
-    type: PlutoColumnType.text(),
-  ),
+      title: 'IP',
+      field: 'ip_field',
+      type: PlutoColumnType.text(),
+      width: PlutoGridSettings.columnWidth),
 
   /// Number Column definition
   PlutoColumn(

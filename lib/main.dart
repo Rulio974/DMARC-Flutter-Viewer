@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'navigator/noAnimation.dart';
-import 'config/HQ_colors.dart';
+import 'config/const_var.dart';
 
 import 'table.dart';
 import 'charts.dart';
@@ -35,30 +35,6 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: hqYellow,
-      // appBar: AppBar(
-      //   title: const Text('DMARC Viewer'),
-      //   actions: [
-      //     IconButton(
-      //       onPressed: () {
-      //         Navigator.push(
-      //           context,
-      //           NoAnimationPageRoute(builder: (context) => HomePage()),
-      //         );
-      //       },
-      //       icon: const Icon(
-      //         Icons.replay_outlined,
-      //       ),
-      //     ),
-      //     IconButton(
-      //       onPressed: () {},
-      //       icon: const Icon(Icons.settings),
-      //     ),
-      //     IconButton(
-      //       onPressed: () {},
-      //       icon: const Icon(Icons.help),
-      //     ),
-      //   ],
-      // ),
       body: Row(
         children: [
           Charts(),
