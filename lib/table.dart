@@ -57,9 +57,18 @@ class _DmarcTableState extends State<DmarcTable> {
       builder: ((BuildContext context, AsyncSnapshot snapshot) {
         if (snapshot.hasData) {
           return Container(
+              margin: EdgeInsets.only(left: 10),
               height: height,
               width: width / 1.2,
-              decoration: const BoxDecoration(color: Colors.white),
+              decoration: BoxDecoration(color: Colors.white, boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.2), // couleur de l'ombre
+                  spreadRadius: 5, // expansion de l'ombre
+                  blurRadius: 7, // flou de l'ombre
+                  offset: Offset(-5, 0), // décalage de l'ombre
+                )
+              ]),
+
               // margin:
               //     EdgeInsets.fromLTRB(width / 32, width / 20, width / 32, 0),
               child: PlutoGrid(

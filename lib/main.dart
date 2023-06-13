@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-
 import 'navigator/noAnimation.dart';
+import 'config/HQ_colors.dart';
 
 import 'table.dart';
+import 'charts.dart';
 
 void main() {
   runApp(const MyApp());
@@ -33,6 +34,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: hqYellow,
       // appBar: AppBar(
       //   title: const Text('DMARC Viewer'),
       //   actions: [
@@ -59,7 +61,7 @@ class _HomePageState extends State<HomePage> {
       // ),
       body: Row(
         children: [
-          Expanded(child: SizedBox()),
+          Charts(),
           DmarcTable(),
         ],
       ),
