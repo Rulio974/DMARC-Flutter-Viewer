@@ -4,6 +4,10 @@ import 'package:pluto_grid/pluto_grid.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
+import 'main.dart';
+
+import 'navigator/noAnimation.dart';
+
 import 'config/columns_config.dart';
 
 class DmarcTable extends StatefulWidget {
@@ -50,18 +54,24 @@ class _DmarcTableState extends State<DmarcTable> {
 
     return FutureBuilder(
       future: fetchData(),
-      builder: ((context, snapshot) {
+      builder: ((BuildContext context, AsyncSnapshot snapshot) {
         if (snapshot.hasData) {
           return Container(
-              decoration: BoxDecoration(
-                  color: Colors.white, borderRadius: BorderRadius.circular(12)),
-              padding:
-                  EdgeInsets.fromLTRB(width / 12, width / 20, width / 12, 0),
+              height: height,
+              width: width / 1.2,
+              decoration: const BoxDecoration(color: Colors.white),
+              // margin:
+              //     EdgeInsets.fromLTRB(width / 32, width / 20, width / 32, 0),
               child: PlutoGrid(
-                configuration: PlutoGridConfiguration(
-                    style: PlutoGridStyleConfig(
-                        gridBorderColor: Colors.blue,
-                        gridBorderRadius: BorderRadius.circular(15))),
+                configuration: const PlutoGridConfiguration(
+                  style: PlutoGridStyleConfig(
+                    gridBorderColor: Colors.blue,
+                    gridBorderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(15),
+                      topRight: Radius.circular(15),
+                    ),
+                  ),
+                ),
                 columns: columns,
                 rows: snapshot.data!,
                 onRowDoubleTap: (event) {
@@ -101,8 +111,14 @@ class _DmarcTableState extends State<DmarcTable> {
                                         'Deleting record with ID: ${event.row.cells['id_field']?.value}'); // Ajoutez cette ligne pour imprimer l'ID
                                   }
 
-                                  Navigator.of(context).pop();
-                                  setState(() {});
+                                  Navigator.push(
+                                    context,
+                                    NoAnimationPageRoute(
+                                        builder: (context) => HomePage()),
+                                  );
+                                  setState(() {
+                                    fetchData();
+                                  });
                                 }).catchError((error) {
                                   if (kDebugMode) {
                                     print('Error: $error');

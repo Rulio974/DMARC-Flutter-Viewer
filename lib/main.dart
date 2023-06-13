@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:pluto_grid/pluto_grid.dart';
 
-import 'config/columns_config.dart';
+import 'navigator/noAnimation.dart';
+
 import 'table.dart';
 
 void main() {
@@ -33,16 +33,36 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: const Text('DMARC Viewer'),
-          actions: [
-            IconButton(
-              onPressed: () {},
-              icon: Icon(Icons.settings),
-            ),
-            IconButton(onPressed: () {}, icon: Icon(Icons.help))
-          ],
-        ),
-        body: DmarcTable());
+      // appBar: AppBar(
+      //   title: const Text('DMARC Viewer'),
+      //   actions: [
+      //     IconButton(
+      //       onPressed: () {
+      //         Navigator.push(
+      //           context,
+      //           NoAnimationPageRoute(builder: (context) => HomePage()),
+      //         );
+      //       },
+      //       icon: const Icon(
+      //         Icons.replay_outlined,
+      //       ),
+      //     ),
+      //     IconButton(
+      //       onPressed: () {},
+      //       icon: const Icon(Icons.settings),
+      //     ),
+      //     IconButton(
+      //       onPressed: () {},
+      //       icon: const Icon(Icons.help),
+      //     ),
+      //   ],
+      // ),
+      body: Row(
+        children: [
+          Expanded(child: SizedBox()),
+          DmarcTable(),
+        ],
+      ),
+    );
   }
 }
