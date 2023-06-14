@@ -33,7 +33,7 @@ class HeaderTab extends StatelessWidget {
             crossAxisAlignment: WrapCrossAlignment.center,
             alignment: WrapAlignment.spaceAround,
             children: [
-              Expanded(
+              Container(
                 child: FittedBox(
                   fit: BoxFit.contain,
                   child: Padding(
@@ -42,7 +42,7 @@ class HeaderTab extends StatelessWidget {
                   ),
                 ),
               ),
-              Expanded(
+              Container(
                 child: FittedBox(
                   fit: BoxFit.contain,
                   child: Text(
@@ -50,7 +50,7 @@ class HeaderTab extends StatelessWidget {
                     style: TextStyle(color: Colors.white),
                   ),
                 ),
-              )
+              ),
             ],
           ),
         ),
