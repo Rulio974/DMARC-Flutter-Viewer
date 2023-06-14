@@ -1,3 +1,4 @@
+import 'package:dmarc_flutter/config/pick_file.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:pluto_grid/pluto_grid.dart';
@@ -5,6 +6,7 @@ import 'package:http/http.dart' as http;
 import 'config/const_var.dart';
 import 'config/fetch_data.dart';
 import 'widgets/header_tab.dart';
+import 'config/tab_functions.dart';
 
 import 'main.dart';
 
@@ -59,6 +61,7 @@ class _DmarcTableState extends State<DmarcTable> {
               children: [
                 const Expanded(child: SizedBox()),
                 HeaderTab(
+                  tabFunction: () {},
                   icone: const Icon(
                     Icons.settings,
                     size: 30,
@@ -68,6 +71,7 @@ class _DmarcTableState extends State<DmarcTable> {
                 ),
                 const Expanded(child: SizedBox()),
                 HeaderTab(
+                  tabFunction: () {},
                   icone: const Icon(
                     Icons.help,
                     size: 30,
@@ -77,12 +81,15 @@ class _DmarcTableState extends State<DmarcTable> {
                 ),
                 const Expanded(child: SizedBox()),
                 HeaderTab(
+                  tabFunction: () {
+                    uploadFile();
+                  },
                   icone: const Icon(
-                    Icons.local_dining,
+                    Icons.arrow_circle_down_outlined,
                     size: 30,
                     color: Colors.white,
                   ),
-                  title: "Recharger",
+                  title: "Charger un fichier",
                 ),
                 const Expanded(child: SizedBox()),
               ],
