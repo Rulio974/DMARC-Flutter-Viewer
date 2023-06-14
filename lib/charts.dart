@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pluto_grid/pluto_grid.dart';
-import 'charts/number.dart';
+import 'widgets/number.dart';
 
 class Charts extends StatefulWidget {
   final List<PlutoRow>? rows;
