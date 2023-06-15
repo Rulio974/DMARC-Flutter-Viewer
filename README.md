@@ -1,4 +1,4 @@
-# Visualiseur DMARC Flutter : Client Mobile 📱
+# Visualiseur DMARC Flutter : Client 
 
 > ## :construction: Projet en cours de développement :construction:
 
