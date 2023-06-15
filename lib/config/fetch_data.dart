@@ -10,14 +10,14 @@ Future<List<PlutoRow>> fetchData() async {
   if (response.statusCode == 200) {
     List<dynamic> data = json.decode(response.body);
 
-    return data.map((item) {
+    List<PlutoRow> rows = data.map((item) {
       return PlutoRow(
         cells: {
           'id_field': PlutoCell(value: item['id']),
           'ip_field': PlutoCell(value: item['ip'].toString()),
           'ipv6_field': PlutoCell(
               value: item['ip6'] != null ? item['ip6'].toString() : 'NULL'),
-          'rcount_field': PlutoCell(value: item['rcount'].toString()),
+          'rcount_field': PlutoCell(value: item['rcount']),
           'dkim_field': PlutoCell(value: item['dkimdomain']),
           'spf_d_field': PlutoCell(value: item['spfresult']),
           'spf_r_field': PlutoCell(value: item['spfresult']),
@@ -28,6 +28,11 @@ Future<List<PlutoRow>> fetchData() async {
         },
       );
     }).toList();
+
+    rows.sort((b, a) => a.cells['rcount_field']?.value
+        .compareTo(b.cells['rcount_field']?.value));
+
+    return rows;
   } else {
     throw Exception('Failed to load data');
   }

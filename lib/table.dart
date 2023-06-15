@@ -6,7 +6,8 @@ import 'package:http/http.dart' as http;
 import 'config/const_var.dart';
 import 'config/fetch_data.dart';
 import 'widgets/header_tab.dart';
-import 'config/tab_functions.dart';
+import 'tabs/tab_params.dart';
+import 'widgets/tabs.dart';
 
 import 'main.dart';
 
@@ -28,11 +29,6 @@ class _DmarcTableState extends State<DmarcTable> {
 
   @override
   Widget build(BuildContext context) {
-    final filteredRows = widget.rows
-        ?.where((row) => row.cells.values
-            .any((cell) => cell.value.toString().contains(filter)))
-        .toList();
-
     Size screenSize = MediaQuery.of(context).size;
 
     double width = screenSize.width;
@@ -55,45 +51,7 @@ class _DmarcTableState extends State<DmarcTable> {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                const Expanded(child: SizedBox()),
-                HeaderTab(
-                  tabFunction: () {},
-                  icone: const Icon(
-                    Icons.settings,
-                    size: 30,
-                    color: Colors.white,
-                  ),
-                  title: "Paramètres",
-                ),
-                const Expanded(child: SizedBox()),
-                HeaderTab(
-                  tabFunction: () {},
-                  icone: const Icon(
-                    Icons.help,
-                    size: 30,
-                    color: Colors.white,
-                  ),
-                  title: "Aide",
-                ),
-                const Expanded(child: SizedBox()),
-                HeaderTab(
-                  tabFunction: () {
-                    uploadFile();
-                  },
-                  icone: const Icon(
-                    Icons.arrow_circle_down_outlined,
-                    size: 30,
-                    color: Colors.white,
-                  ),
-                  title: "Charger un fichier",
-                ),
-                const Expanded(child: SizedBox()),
-              ],
-            ),
+            Tabs(),
             Expanded(
               child: Container(
                 decoration: BoxDecoration(

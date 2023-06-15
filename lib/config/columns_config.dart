@@ -20,6 +20,8 @@ List<PlutoColumn> columns = [
 
   /// Select Column definition
   PlutoColumn(
+    enableSorting: true,
+    sort: PlutoColumnSort.descending,
     title: 'Rcount',
     field: 'rcount_field',
     type: PlutoColumnType.number(),

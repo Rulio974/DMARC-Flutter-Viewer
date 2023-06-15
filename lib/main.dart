@@ -34,12 +34,6 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   List<String> sharedNumber = [];
 
-  void updateData(List<String> newData) {
-    setState(() {
-      sharedNumber = newData;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
