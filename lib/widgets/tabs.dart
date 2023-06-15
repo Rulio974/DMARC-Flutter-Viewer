@@ -36,7 +36,13 @@ class _TabsState extends State<Tabs> {
         ),
         const Expanded(child: SizedBox()),
         HeaderTab(
-          tabFunction: () {},
+          tabFunction: () {
+            showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return HelpDialog();
+                });
+          },
           icone: const Icon(
             Icons.help,
             size: 30,

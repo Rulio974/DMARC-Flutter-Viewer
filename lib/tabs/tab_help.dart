@@ -12,23 +12,37 @@ class _HelpDialogState extends State<HelpDialog> {
 
   @override
   Widget build(BuildContext context) {
-    return AlertDialog(
-      title: const Text('Confirmer la suppression'),
-      content: const Text('Voulez vous vraiment supprimer cette entrée ?'),
-      actions: <Widget>[
-        TextButton(
-          style: ButtonStyle(
-              backgroundColor: MaterialStateProperty.all<Color>(Colors.red)),
-          child: const Text(
-            'Annuler',
-            style: TextStyle(color: Colors.white),
-          ),
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
+    Size screenSize = MediaQuery.of(context).size;
+
+    double width = screenSize.width;
+    double height = screenSize.height;
+    return Dialog(
+      child: Container(
+        height: height / 2,
+        width: width / 2,
+        color: Colors.blue,
+        child: Column(
+          children: [
+            GridView.builder(
+              shrinkWrap: true,
+              itemCount: 8,
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 6,
+                childAspectRatio: 1,
+              ),
+              itemBuilder: (BuildContext context, int index) {
+                return Container(
+                  margin: const EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                    color: Colors.red,
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                );
+              },
+            ),
+          ],
         ),
-        TextButton(child: const Text('Supprimer'), onPressed: () {}),
-      ],
+      ),
     );
   }
 }
