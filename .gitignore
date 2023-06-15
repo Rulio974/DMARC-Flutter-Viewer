@@ -9,6 +9,7 @@
 .history
 .svn/
 migrate_working_dir/
+lib/config/url_path_private.dart
 
 # IntelliJ related
 *.iml
