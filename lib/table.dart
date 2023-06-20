@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:dmarc_flutter/config/pick_file.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -38,7 +40,8 @@ class _DmarcTableState extends State<DmarcTable> {
       margin: const EdgeInsets.only(left: 10),
       height: height,
       width: width / 1.2,
-      decoration: BoxDecoration(color: Colors.white, boxShadow: [
+      decoration:
+          BoxDecoration(color: Theme.of(context).backgroundColor, boxShadow: [
         BoxShadow(
           color: Colors.grey.withOpacity(0.2),
           spreadRadius: 5,
