@@ -21,9 +21,7 @@ class ThemeNotifier with ChangeNotifier {
   }
 
   _initPrefs() async {
-    if (prefs == null) {
-      prefs = await SharedPreferences.getInstance();
-    }
+    prefs ??= await SharedPreferences.getInstance();
   }
 
   _loadFromPrefs() async {

@@ -10,26 +10,30 @@ class ThemeClass {
     focusColor: const Color(0xfffbf4dc),
     primaryColor: const Color(0xfff9b104),
     backgroundColor: Colors.white,
+    secondaryHeaderColor: Colors.white,
     shadowColor: Colors.grey.withOpacity(0.2),
     iconTheme: const IconThemeData(color: Colors.white),
   );
 
   static ThemeData darkTheme = ThemeData(
-    scaffoldBackgroundColor: Colors.black,
-    focusColor: const Color(0xfffbf4dc),
-    primaryColor: const Color(0xfff9b104),
-    backgroundColor: Colors.white,
-    shadowColor: Colors.grey.withOpacity(0.5),
+    scaffoldBackgroundColor: const Color(0xff0D1B2A),
+    focusColor: const Color(0xff415A77),
+    primaryColor: const Color(0xff0D1B2A),
+    backgroundColor: Color(0xff415A77),
+    secondaryHeaderColor: Color(0xfff778DA9),
+    shadowColor: Colors.transparent,
     iconTheme: const IconThemeData(color: Colors.white),
   );
 }
 
 extension CustomThemeData on ThemeData {
-  Color get chartColor =>
-      brightness == Brightness.dark ? Colors.black : Colors.white;
+  Color get chartColor {
+    return brightness == Brightness.dark ? Colors.red : Colors.blue;
+  }
 
-  Color get primaryTextColor =>
-      brightness == Brightness.dark ? Colors.black : Colors.white;
+  Color get primaryTextColor {
+    return brightness == Brightness.dark ? Colors.black : Colors.white;
+  }
 }
 
 const Color hqYellow = Color(0xfff9b104);

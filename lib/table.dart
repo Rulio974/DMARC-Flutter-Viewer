@@ -63,7 +63,7 @@ class _DmarcTableState extends State<DmarcTable> {
                   borderRadius: BorderRadius.circular(15),
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.grey.withOpacity(0.3),
+                      color: Theme.of(context).shadowColor,
                       spreadRadius: 7,
                       blurRadius: 7,
                     ),
@@ -73,10 +73,11 @@ class _DmarcTableState extends State<DmarcTable> {
                 child: PlutoGrid(
                   configuration: PlutoGridConfiguration(
                     style: PlutoGridStyleConfig(
+                        gridBackgroundColor: Theme.of(context).backgroundColor,
                         cellTextStyle: GoogleFonts.ubuntu(),
-                        activatedBorderColor: hqYellow,
-                        activatedColor: hqYellowActivated,
-                        gridBorderColor: hqYellow,
+                        activatedBorderColor: Theme.of(context).primaryColor,
+                        activatedColor: Theme.of(context).focusColor,
+                        gridBorderColor: Theme.of(context).primaryColor,
                         gridBorderRadius: BorderRadius.circular(15)),
                   ),
                   columns: columns,
