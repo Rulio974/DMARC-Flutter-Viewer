@@ -27,10 +27,10 @@ class _TabsState extends State<Tabs> {
                   return ParamDialog();
                 });
           },
-          icone: const Icon(
+          icone: Icon(
             Icons.settings,
             size: 30,
-            color: Colors.white,
+            color: Theme.of(context).iconTheme.color,
           ),
           title: "Paramètres",
         ),
@@ -43,10 +43,10 @@ class _TabsState extends State<Tabs> {
                   return HelpDialog();
                 });
           },
-          icone: const Icon(
+          icone: Icon(
             Icons.help,
             size: 30,
-            color: Colors.white,
+            color: Theme.of(context).iconTheme.color,
           ),
           title: "Aide",
         ),
@@ -55,10 +55,10 @@ class _TabsState extends State<Tabs> {
           tabFunction: () {
             uploadFile();
           },
-          icone: const Icon(
+          icone: Icon(
             Icons.arrow_circle_down_outlined,
             size: 30,
-            color: Colors.white,
+            color: Theme.of(context).iconTheme.color,
           ),
           title: "Charger",
         ),

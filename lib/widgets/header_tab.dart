@@ -28,11 +28,11 @@ class HeaderTab extends StatelessWidget {
         child: Container(
           height: height / 20,
           decoration: BoxDecoration(
-            color: hqYellow,
+            color: Theme.of(context).primaryColor,
             borderRadius: BorderRadius.circular(30),
             boxShadow: [
               BoxShadow(
-                color: Colors.grey.withOpacity(0.2),
+                color: Theme.of(context).shadowColor,
                 spreadRadius: 5,
                 blurRadius: 7,
               ),
@@ -57,7 +57,9 @@ class HeaderTab extends StatelessWidget {
                     fit: BoxFit.contain,
                     child: Text(
                       title,
-                      style: TextStyle(color: Colors.white),
+                      style: TextStyle(
+                        color: Theme.of(context).primaryTextColor,
+                      ),
                     ),
                   ),
                 ),

@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:dmarc_flutter/config/const_var.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -20,11 +22,11 @@ class ErrorSnap extends StatelessWidget {
         height: height / 2,
         width: width / 2,
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: Theme.of(context).backgroundColor,
           borderRadius: BorderRadius.circular(15),
           boxShadow: [
             BoxShadow(
-              color: Colors.grey.withOpacity(0.3),
+              color: Theme.of(context).shadowColor,
               spreadRadius: 7,
               blurRadius: 7,
             ),

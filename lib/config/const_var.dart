@@ -6,16 +6,30 @@ import 'package:adaptive_theme/adaptive_theme.dart';
 
 class ThemeClass {
   static ThemeData lightTheme = ThemeData(
-      scaffoldBackgroundColor: const Color(0xfff9b104),
-      focusColor: const Color(0xfffbf4dc),
-      primaryColor: const Color(0xfff9b104),
-      backgroundColor: Colors.white);
+    scaffoldBackgroundColor: const Color(0xfff9b104),
+    focusColor: const Color(0xfffbf4dc),
+    primaryColor: const Color(0xfff9b104),
+    backgroundColor: Colors.white,
+    shadowColor: Colors.grey.withOpacity(0.2),
+    iconTheme: const IconThemeData(color: Colors.white),
+  );
 
   static ThemeData darkTheme = ThemeData(
     scaffoldBackgroundColor: Colors.black,
     focusColor: const Color(0xfffbf4dc),
     primaryColor: const Color(0xfff9b104),
+    backgroundColor: Colors.white,
+    shadowColor: Colors.grey.withOpacity(0.5),
+    iconTheme: const IconThemeData(color: Colors.white),
   );
+}
+
+extension CustomThemeData on ThemeData {
+  Color get chartColor =>
+      brightness == Brightness.dark ? Colors.black : Colors.white;
+
+  Color get primaryTextColor =>
+      brightness == Brightness.dark ? Colors.black : Colors.white;
 }
 
 const Color hqYellow = Color(0xfff9b104);

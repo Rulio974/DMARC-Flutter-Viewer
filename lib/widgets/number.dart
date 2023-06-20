@@ -25,12 +25,12 @@ class NumberState extends State<Number> {
 
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Theme.of(context).chartColor,
         borderRadius: BorderRadius.circular(10),
         boxShadow: [
           BoxShadow(
-            color:
-                Colors.grey.withOpacity(0.5), // this is the color of the shadow
+            color: Theme.of(context)
+                .shadowColor, // this is the color of the shadow
             spreadRadius: 5, // this is the spread of the shadow
             blurRadius: 7, // this is the blur of the shadow
             offset: const Offset(0, 3),

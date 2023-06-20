@@ -1,3 +1,4 @@
+import 'package:dmarc_flutter/config/const_var.dart';
 import 'package:flutter/material.dart';
 
 class ParamDialog extends StatefulWidget {
@@ -19,9 +20,9 @@ class _ParamDialogState extends State<ParamDialog> {
         TextButton(
           style: ButtonStyle(
               backgroundColor: MaterialStateProperty.all<Color>(Colors.red)),
-          child: const Text(
+          child: Text(
             'Annuler',
-            style: TextStyle(color: Colors.white),
+            style: TextStyle(color: Theme.of(context).primaryTextColor),
           ),
           onPressed: () {
             Navigator.of(context).pop();

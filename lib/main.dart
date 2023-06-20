@@ -51,9 +51,9 @@ class _HomePageState extends State<HomePage> {
       ),
       builder: ((BuildContext context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Center(
+          return Center(
               child: CircularProgressIndicator(
-            color: Colors.white,
+            color: Theme.of(context).iconTheme.color,
           ));
         } else if (snapshot.hasData) {
           return Row(
