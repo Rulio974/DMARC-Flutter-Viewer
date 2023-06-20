@@ -1,0 +1,10 @@
+[
+    {
+        "icon": "Icons.delete",
+        "text": "Ceci est un texte d'aide"
+    },
+    {
+        "icon": "Icons.delete",
+        "text": "Ceci est un autre texte d'aide"
+    }
+]

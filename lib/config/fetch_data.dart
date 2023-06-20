@@ -1,9 +1,11 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:pluto_grid/pluto_grid.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'const_var.dart';
-import 'url_path.dart';
+import 'url_path_private.dart';
 
 Future<List<PlutoRow>> fetchData() async {
   final response = await http.get(url);
@@ -12,10 +14,13 @@ Future<List<PlutoRow>> fetchData() async {
     List<dynamic> data = json.decode(response.body);
 
     List<PlutoRow> rows = data.map((item) {
+      var ipAsNumber = int.tryParse(item['ip'].toString());
+      var ipAddress = ipAsNumber != null ? _toIP(ipAsNumber) : "Invalid IP";
+
       return PlutoRow(
         cells: {
           'id_field': PlutoCell(value: item['id']),
-          'ip_field': PlutoCell(value: item['ip'].toString()),
+          'ip_field': PlutoCell(value: ipAddress),
           'ipv6_field': PlutoCell(
               value: item['ip6'] != null ? item['ip6'].toString() : 'NULL'),
           'rcount_field': PlutoCell(value: item['rcount']),
@@ -37,4 +42,10 @@ Future<List<PlutoRow>> fetchData() async {
   } else {
     throw Exception('Failed to load data');
   }
+}
+
+// Fonction pour convertir une valeur numérique en adresse IP standard
+String _toIP(int ipAsNumber) {
+  var bytes = ByteData(4)..setUint32(0, ipAsNumber, Endian.big);
+  return '${bytes.getUint8(0)}.${bytes.getUint8(1)}.${bytes.getUint8(2)}.${bytes.getUint8(3)}';
 }

@@ -1,3 +1,4 @@
+import 'package:dmarc_flutter/config/const_var.dart';
 import 'package:flutter/material.dart';
 
 class Number extends StatefulWidget {
@@ -46,7 +47,10 @@ class NumberState extends State<Number> {
               fit: BoxFit.contain,
               child: Padding(
                 padding: const EdgeInsets.only(top: 5),
-                child: Text(widget.data),
+                child: Text(
+                  widget.data,
+                  style: chartFont,
+                ),
               ),
             ),
           ),
@@ -55,7 +59,10 @@ class NumberState extends State<Number> {
               fit: BoxFit.contain,
               child: Padding(
                 padding: const EdgeInsets.only(left: 4, right: 4),
-                child: Text(widget.text),
+                child: Text(
+                  widget.text,
+                  style: chartFont,
+                ),
               ),
             ),
           ),

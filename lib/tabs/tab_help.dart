@@ -1,3 +1,5 @@
+import 'dart:convert';
+import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 
 class HelpDialog extends StatefulWidget {
@@ -9,6 +11,33 @@ class HelpDialog extends StatefulWidget {
 
 class _HelpDialogState extends State<HelpDialog> {
   List<String> sharedNumber = [];
+  List<dynamic> helpData = [];
+
+  @override
+  void initState() {
+    super.initState();
+    readJsonData('help.json').then((data) {
+      setState(() {
+        helpData = data;
+      });
+    });
+  }
+
+  Future<List<dynamic>> readJsonData(String filename) async {
+    String jsonString = await rootBundle.loadString(filename);
+    return json.decode(jsonString);
+  }
+
+  IconData getIconBasedOnName(String iconName) {
+    switch (iconName) {
+      case 'delete':
+        return Icons.delete;
+      // Ajoutez tous les cas pour les autres noms d'icônes que vous avez
+      // dans votre fichier JSON
+      default:
+        return Icons.help;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +54,7 @@ class _HelpDialogState extends State<HelpDialog> {
           children: [
             GridView.builder(
               shrinkWrap: true,
-              itemCount: 8,
+              itemCount: helpData.length,
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 6,
                 childAspectRatio: 1,
@@ -36,6 +65,12 @@ class _HelpDialogState extends State<HelpDialog> {
                   decoration: BoxDecoration(
                     color: Colors.red,
                     borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Column(
+                    children: [
+                      Icon(getIconBasedOnName(helpData[index]['icone'])),
+                      Text(helpData[index]['text']),
+                    ],
                   ),
                 );
               },

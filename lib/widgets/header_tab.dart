@@ -57,7 +57,7 @@ class HeaderTab extends StatelessWidget {
                     fit: BoxFit.contain,
                     child: Text(
                       title,
-                      style: TextStyle(color: Colors.white),
+                      style: tabFont,
                     ),
                   ),
                 ),

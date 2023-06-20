@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'navigator/noAnimation.dart';
 import 'config/const_var.dart';
 import 'config/fetch_data.dart';
+import 'widgets/error_snapshot.dart';
 
 import 'table.dart';
 import 'charts.dart';
@@ -21,18 +22,24 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: HomePage(),
+      home: const HomePage(),
     );
   }
 }
 
 class HomePage extends StatefulWidget {
+  const HomePage({super.key});
+
   @override
   State<HomePage> createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
   List<String> sharedNumber = [];
+
+  void reload() {
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +63,10 @@ class _HomePageState extends State<HomePage> {
                 ],
               );
             } else if (snapshot.hasError) {
-              return Text('${snapshot.error}');
+              return ErrorSnap(
+                error: snapshot.error,
+                reload: reload,
+              );
             } else {
               return const Center(child: Text('Pas de données disponibles'));
             }
