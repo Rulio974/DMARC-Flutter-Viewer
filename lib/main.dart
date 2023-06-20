@@ -1,26 +1,36 @@
 import 'package:flutter/material.dart';
-import 'navigator/noAnimation.dart';
 import 'config/const_var.dart';
 import 'config/fetch_data.dart';
+import 'config/theme_notifier.dart';
 import 'widgets/error_snapshot.dart';
 
 import 'table.dart';
 import 'charts.dart';
-import 'package:adaptive_theme/adaptive_theme.dart';
+import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    ChangeNotifierProvider<ThemeNotifier>(
+      create: (_) => ThemeNotifier(),
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  const MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final themeNotifier = Provider.of<ThemeNotifier>(context);
+
     return MaterialApp(
       title: 'Dmarc Flutter Viewer',
       debugShowCheckedModeBanner: false,
-      theme: ThemeClass.lightTheme,
+      theme: themeNotifier.darkTheme
+          ? ThemeClass.darkTheme
+          : ThemeClass.lightTheme,
       home: const HomePage(),
     );
   }

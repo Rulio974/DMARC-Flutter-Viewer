@@ -1,34 +1,27 @@
 import 'package:dmarc_flutter/config/const_var.dart';
+import 'package:dmarc_flutter/config/theme_notifier.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ParamDialog extends StatefulWidget {
-  const ParamDialog({super.key});
+  const ParamDialog({Key? key}) : super(key: key);
 
   @override
-  State<ParamDialog> createState() => _ParamDialogState();
+  _ParamDialogState createState() => _ParamDialogState();
 }
 
 class _ParamDialogState extends State<ParamDialog> {
-  List<String> sharedNumber = [];
-
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: const Text('Confirmer la suppression'),
-      content: const Text('Voulez vous vraiment supprimer cette entrée ?'),
       actions: <Widget>[
-        TextButton(
-          style: ButtonStyle(
-              backgroundColor: MaterialStateProperty.all<Color>(Colors.red)),
-          child: Text(
-            'Annuler',
-            style: TextStyle(color: Theme.of(context).primaryTextColor),
-          ),
-          onPressed: () {
-            Navigator.of(context).pop();
+        Switch(
+          value: Provider.of<ThemeNotifier>(context).darkTheme,
+          onChanged: (val) {
+            Provider.of<ThemeNotifier>(context, listen: false).toggleTheme();
           },
         ),
-        TextButton(child: const Text('Supprimer'), onPressed: () {}),
       ],
     );
   }
