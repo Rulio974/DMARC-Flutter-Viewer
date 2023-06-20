@@ -1,10 +1,10 @@
 [
     {
-        "icon": "Icons.delete",
+        "icon": "facebook",
         "text": "Ceci est un texte d'aide"
     },
     {
-        "icon": "Icons.delete",
+        "icon": "facebook",
         "text": "Ceci est un autre texte d'aide"
     }
 ]
