@@ -1,6 +1,7 @@
 import 'package:dmarc_flutter/config/pick_file.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:pluto_grid/pluto_grid.dart';
 import 'package:http/http.dart' as http;
 import 'config/const_var.dart';
@@ -69,6 +70,8 @@ class _DmarcTableState extends State<DmarcTable> {
                 child: PlutoGrid(
                   configuration: PlutoGridConfiguration(
                     style: PlutoGridStyleConfig(
+                        cellTextStyle: GoogleFonts.ubuntu(),
+                        activatedBorderColor: hqYellow,
                         activatedColor: hqYellowActivated,
                         gridBorderColor: hqYellow,
                         gridBorderRadius: BorderRadius.circular(15)),
