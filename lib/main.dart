@@ -9,17 +9,23 @@ import 'charts.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  prefs.setString('ip_adress', "0.0.0.0");
+  print(prefs.getString('ip_adress'));
   runApp(
     ChangeNotifierProvider<ThemeNotifier>(
       create: (_) => ThemeNotifier(),
-      child: const MyApp(),
+      child: MyApp(prefs: prefs),
     ),
   );
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  final SharedPreferences prefs;
+
+  const MyApp({Key? key, required this.prefs}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -31,13 +37,15 @@ class MyApp extends StatelessWidget {
       theme: themeNotifier.darkTheme
           ? ThemeClass.darkTheme
           : ThemeClass.lightTheme,
-      home: const HomePage(),
+      home: HomePage(prefs: prefs),
     );
   }
 }
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+  final SharedPreferences prefs;
+
+  HomePage({Key? key, required this.prefs}) : super(key: key);
 
   @override
   State<HomePage> createState() => _HomePageState();

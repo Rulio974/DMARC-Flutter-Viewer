@@ -120,12 +120,12 @@ class _DmarcTableState extends State<DmarcTable> {
                                       print(
                                           'Deleting record with ID: ${event.row.cells['id_field']?.value}'); // Ajoutez cette ligne pour imprimer l'ID
                                     }
-
-                                    Navigator.push(
-                                      context,
-                                      NoAnimationPageRoute(
-                                          builder: (context) => HomePage()),
-                                    );
+                                    Navigator.pop(context);
+                                    // Navigator.push(
+                                    //   context,
+                                    //   NoAnimationPageRoute(
+                                    //       builder: (context) => HomePage()),
+                                    // );
                                     setState(() {
                                       fetchData();
                                     });

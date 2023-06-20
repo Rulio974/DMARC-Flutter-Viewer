@@ -12,25 +12,48 @@ class ParamDialog extends StatefulWidget {
 }
 
 class _ParamDialogState extends State<ParamDialog> {
-  final TextEditingController ipController = TextEditingController();
+  late TextEditingController ipController = TextEditingController();
+  // late FocusNode ipFocusNode;
+  String ip_controller = "";
+
+  @override
+  void initState() {
+    super.initState();
+    _loadIpAddress().then((value) {
+      ip_controller = value;
+    });
+  }
+
+  Future<String> _loadIpAddress() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getString('ip_address') ?? "";
+  }
+
+  // Future<void> _saveIpAddress() async {
+  //   if (!ipFocusNode.hasFocus) {
+  //     SharedPreferences prefs = await SharedPreferences.getInstance();
+  //     await prefs.setString('ip_address', ipController.text);
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
+    print(ip_controller);
     return Dialog(
       child: Container(
         height: height / 3,
-        width: width / 3,
+        width: width / 2,
         child: Table(
           defaultVerticalAlignment: TableCellVerticalAlignment.middle,
-          columnWidths: const {
-            0: FractionColumnWidth(.4),
-            1: FractionColumnWidth(.6),
+          columnWidths: {
+            0: FractionColumnWidth(.3),
+            1: FractionColumnWidth(.7),
           },
           children: [
             TableRow(children: [
-              const Center(
+              Center(
                 child: Text(
                   "Adresse IP",
                   style: TextStyle(fontSize: 20),
@@ -41,15 +64,14 @@ class _ParamDialogState extends State<ParamDialog> {
                   width: width / 16,
                   child: TextField(
                     controller: ipController,
-                    decoration: const InputDecoration(
-                      hintText: "Votre serveur",
-                    ),
+                    // focusNode: ipFocusNode,
+                    decoration: InputDecoration(hintText: "_loadIpAddress();"),
                   ),
                 ),
               ),
             ]),
             TableRow(children: [
-              const Center(
+              Center(
                 child: Text(
                   "Dark Mode",
                   style: TextStyle(fontSize: 20),
@@ -69,5 +91,12 @@ class _ParamDialogState extends State<ParamDialog> {
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    ipController.dispose();
+    // ipFocusNode.dispose();
+    super.dispose();
   }
 }
