@@ -1,15 +1,11 @@
 // ignore_for_file: deprecated_member_use
 
-import 'package:dmarc_flutter/config/pick_file.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pluto_grid/pluto_grid.dart';
 import 'package:http/http.dart' as http;
-import 'config/const_var.dart';
 import 'config/fetch_data.dart';
-import 'widgets/header_tab.dart';
-import 'tabs/tab_params.dart';
 import 'widgets/tabs.dart';
 
 import 'main.dart';
@@ -73,12 +69,16 @@ class _DmarcTableState extends State<DmarcTable> {
                 child: PlutoGrid(
                   configuration: PlutoGridConfiguration(
                     style: PlutoGridStyleConfig(
+                        columnTextStyle:
+                            TextStyle(color: Theme.of(context).hintColor),
                         gridBackgroundColor: Theme.of(context).backgroundColor,
+                        borderColor: Colors.grey,
                         cellTextStyle: GoogleFonts.ubuntu(),
                         activatedBorderColor: Theme.of(context).primaryColor,
                         activatedColor: Theme.of(context).focusColor,
                         gridBorderColor: Theme.of(context).primaryColor,
-                        gridBorderRadius: BorderRadius.circular(15)),
+                        gridBorderRadius: BorderRadius.circular(15),
+                        menuBackgroundColor: Colors.red),
                   ),
                   columns: columns,
                   rows: widget.rows!,

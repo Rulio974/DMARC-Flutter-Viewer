@@ -58,7 +58,7 @@ class HeaderTab extends StatelessWidget {
                     child: Text(
                       title,
                       style: TextStyle(
-                        color: Theme.of(context).primaryTextColor,
+                        color: Theme.of(context).hintColor,
                       ),
                     ),
                   ),
