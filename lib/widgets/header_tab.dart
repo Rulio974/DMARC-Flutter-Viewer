@@ -21,8 +21,8 @@ class HeaderTab extends StatelessWidget {
     double height = screenSize.height;
 
     return Expanded(
-      child: GestureDetector(
-        onTap: () async {
+      child: InkWell(
+        onTap: () {
           tabFunction();
         },
         child: Container(
@@ -57,7 +57,7 @@ class HeaderTab extends StatelessWidget {
                     fit: BoxFit.contain,
                     child: Text(
                       title,
-                      style: tabFont,
+                      style: TextStyle(color: Colors.white),
                     ),
                   ),
                 ),
