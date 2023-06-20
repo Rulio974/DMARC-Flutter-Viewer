@@ -52,7 +52,10 @@ class _HomePageState extends State<HomePage> {
           ),
           builder: ((BuildContext context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Center(child: CircularProgressIndicator());
+              return const Center(
+                  child: CircularProgressIndicator(
+                color: Colors.white,
+              ));
             } else if (snapshot.hasData) {
               return Row(
                 children: [
@@ -68,7 +71,10 @@ class _HomePageState extends State<HomePage> {
                 reload: reload,
               );
             } else {
-              return const Center(child: Text('Pas de données disponibles'));
+              return ErrorSnap(
+                error: "No Data",
+                reload: reload,
+              );
             }
           }),
         ));

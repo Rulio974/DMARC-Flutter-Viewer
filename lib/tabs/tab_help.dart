@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
+import '../config/get_icone.dart';
 
 class HelpDialog extends StatefulWidget {
   const HelpDialog({super.key});
@@ -26,17 +27,6 @@ class _HelpDialogState extends State<HelpDialog> {
   Future<List<dynamic>> readJsonData(String filename) async {
     String jsonString = await rootBundle.loadString(filename);
     return json.decode(jsonString);
-  }
-
-  IconData getIconBasedOnName(String iconName) {
-    switch (iconName) {
-      case 'delete':
-        return Icons.delete;
-      // Ajoutez tous les cas pour les autres noms d'icônes que vous avez
-      // dans votre fichier JSON
-      default:
-        return Icons.help;
-    }
   }
 
   @override
@@ -68,8 +58,9 @@ class _HelpDialogState extends State<HelpDialog> {
                   ),
                   child: Column(
                     children: [
-                      Icon(getIconBasedOnName(helpData[index]['icone'])),
                       Text(helpData[index]['text']),
+                      Text(helpData[index]["icon"]),
+                      Icon(getIconForName(helpData[index]['icon'])),
                     ],
                   ),
                 );
