@@ -17,15 +17,15 @@ void main() async {
   runApp(
     ChangeNotifierProvider<ThemeNotifier>(
       create: (_) => ThemeNotifier(),
-      child: MyApp(prefs: prefs),
+      child: MyApp(),
     ),
   );
 }
 
 class MyApp extends StatelessWidget {
-  final SharedPreferences prefs;
+  // final SharedPreferences prefs;
 
-  const MyApp({Key? key, required this.prefs}) : super(key: key);
+  const MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -37,15 +37,15 @@ class MyApp extends StatelessWidget {
       theme: themeNotifier.darkTheme
           ? ThemeClass.darkTheme
           : ThemeClass.lightTheme,
-      home: HomePage(prefs: prefs),
+      home: HomePage(),
     );
   }
 }
 
 class HomePage extends StatefulWidget {
-  final SharedPreferences prefs;
+  // final SharedPreferences prefs;
 
-  HomePage({Key? key, required this.prefs}) : super(key: key);
+  HomePage({Key? key}) : super(key: key);
 
   @override
   State<HomePage> createState() => _HomePageState();
