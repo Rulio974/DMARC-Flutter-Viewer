@@ -7,6 +7,17 @@ import 'dart:convert';
 import 'const_var.dart';
 import 'url_path_private.dart';
 
+Future<int> fetchFileCount() async {
+  final response = await http.get(url.resolve("/uploads/count"));
+
+  if (response.statusCode == 200) {
+    Map<String, dynamic> data = json.decode(response.body);
+    return data['count'];
+  } else {
+    throw Exception('Failed to load file count');
+  }
+}
+
 Future<List<PlutoRow>> fetchData() async {
   final response = await http.get(url);
 

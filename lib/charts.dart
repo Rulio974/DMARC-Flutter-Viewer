@@ -4,23 +4,27 @@ import 'widgets/number.dart';
 
 class Charts extends StatefulWidget {
   final List<PlutoRow>? rows;
+  final int count;
 
-  const Charts({super.key, required this.rows});
+  const Charts({super.key, required this.rows, required this.count});
 
   @override
   State<Charts> createState() => ChartsState();
 }
 
 class ChartsState extends State<Charts> {
-  int? dataReturn() {
+  List<int?> dataReturn() {
     var lenght = widget.rows?.length;
-
-    return lenght;
+    var failCount = widget.rows
+        ?.where((row) => row.cells['spf_d_field']?.value == "fail")
+        .length;
+    return [lenght, failCount];
   }
 
   @override
   Widget build(BuildContext context) {
-    var lenght = dataReturn();
+    var lenght = dataReturn()[0];
+    var count = dataReturn()[1];
     return Expanded(
         child: Container(
       child:
@@ -30,12 +34,12 @@ class ChartsState extends State<Charts> {
           text: "Entrées à traiter",
         ),
         Number(
-          data: lenght.toString(),
-          text: "Entrées à traiter",
+          data: widget.count.toString(),
+          text: "Rapports ajoutés",
         ),
         Number(
-          data: lenght.toString(),
-          text: "Entrées à traiter",
+          data: count.toString(),
+          text: "Entrées en échecs",
         ),
       ]),
     ));

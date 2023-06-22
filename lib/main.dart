@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pluto_grid/pluto_grid.dart';
 import 'config/const_var.dart';
 import 'config/fetch_data.dart';
 import 'config/theme_notifier.dart';
@@ -63,10 +64,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
         // backgroundColor: hqYellow,
         body: FutureBuilder(
-      future: Future.delayed(
-        const Duration(seconds: delayTime),
-        () => fetchData(),
-      ),
+      future: Future.wait([fetchData(), fetchFileCount()]),
       builder: ((BuildContext context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Center(
@@ -76,9 +74,11 @@ class _HomePageState extends State<HomePage> {
         } else if (snapshot.hasData) {
           return Row(
             children: [
-              Charts(rows: snapshot.data),
+              Charts(
+                  rows: snapshot.data![0] as List<PlutoRow>,
+                  count: snapshot.data![1] as int),
               DmarcTable(
-                rows: snapshot.data,
+                rows: snapshot.data![0] as List<PlutoRow>,
               ),
             ],
           );
