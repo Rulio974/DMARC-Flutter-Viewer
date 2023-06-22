@@ -1,8 +1,12 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:dmarc_flutter/config/const_var.dart';
 import 'package:dmarc_flutter/config/theme_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../charts.dart';
 
 class ParamDialog extends StatefulWidget {
   const ParamDialog({Key? key}) : super(key: key);
@@ -14,71 +18,55 @@ class ParamDialog extends StatefulWidget {
 class _ParamDialogState extends State<ParamDialog> {
   late TextEditingController ipController = TextEditingController();
   // late FocusNode ipFocusNode;
-  String ip_controller = "";
+  bool _isVisible = true;
 
   @override
   void initState() {
     super.initState();
-    _loadIpAddress().then((value) {
-      ip_controller = value;
+    _loadVisibilityPreference();
+  }
+
+  Future<void> _loadVisibilityPreference() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    bool isVisible = prefs.getBool('isVisible') ?? true;
+
+    setState(() {
+      _isVisible = isVisible;
     });
   }
 
-  Future<String> _loadIpAddress() async {
+  Future<void> _updateVisibilityPreference(bool newValue) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getString('ip_address') ?? "";
-  }
+    prefs.setBool('isVisible', newValue);
 
-  // Future<void> _saveIpAddress() async {
-  //   if (!ipFocusNode.hasFocus) {
-  //     SharedPreferences prefs = await SharedPreferences.getInstance();
-  //     await prefs.setString('ip_address', ipController.text);
-  //   }
-  // }
+    // ignore: use_build_context_synchronously
+    Provider.of<VisibilityProvider>(context, listen: false)
+        .updateVisibility(newValue);
+
+    setState(() {
+      _isVisible = newValue;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
-    print(ip_controller);
     return Dialog(
       child: Container(
         height: height / 3,
-        width: width / 2,
+        width: width / 4,
         child: Table(
           defaultVerticalAlignment: TableCellVerticalAlignment.middle,
-          columnWidths: {
+          columnWidths: const {
             0: FractionColumnWidth(.3),
             1: FractionColumnWidth(.7),
           },
           children: [
             TableRow(children: [
               Center(
-                child: Text(
-                  "Adresse IP",
-                  style: TextStyle(fontSize: 20),
-                ),
-              ),
-              Center(
-                child: SizedBox(
-                  width: width / 16,
-                  child: TextField(
-                    controller: ipController,
-                    // focusNode: ipFocusNode,
-                    decoration: InputDecoration(hintText: "_loadIpAddress();"),
-                  ),
-                ),
-              ),
-            ]),
-            TableRow(children: [
-              Center(
-                child: Text(
-                  "Dark Mode",
-                  style: TextStyle(fontSize: 20),
-                ),
-              ),
-              Center(
-                child: Switch(
+                child: SwitchListTile(
+                  title: const Text("Dark Mode"),
                   value: Provider.of<ThemeNotifier>(context).darkTheme,
                   onChanged: (val) {
                     Provider.of<ThemeNotifier>(context, listen: false)
@@ -87,6 +75,17 @@ class _ParamDialogState extends State<ParamDialog> {
                 ),
               ),
             ]),
+            TableRow(children: [
+              Center(
+                child: SwitchListTile(
+                  title: const Text("Afficher le logo"),
+                  value: _isVisible,
+                  onChanged: (newValue) {
+                    _updateVisibilityPreference(newValue);
+                  },
+                ),
+              ),
+            ])
           ],
         ),
       ),
@@ -95,7 +94,6 @@ class _ParamDialogState extends State<ParamDialog> {
 
   @override
   void dispose() {
-    ipController.dispose();
     // ipFocusNode.dispose();
     super.dispose();
   }

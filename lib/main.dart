@@ -12,12 +12,17 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  SharedPreferences prefs = await SharedPreferences.getInstance();
-  prefs.setString('ip_adress', "0.0.0.0");
-  print(prefs.getString('ip_adress'));
+
   runApp(
-    ChangeNotifierProvider<ThemeNotifier>(
-      create: (_) => ThemeNotifier(),
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider<ThemeNotifier>(
+          create: (_) => ThemeNotifier(),
+        ),
+        ChangeNotifierProvider<VisibilityProvider>(
+          create: (_) => VisibilityProvider(),
+        ),
+      ],
       child: MyApp(),
     ),
   );

@@ -42,5 +42,19 @@ List<TableRow> buildTableRows(
         ),
       ),
     ]),
+    TableRow(children: [
+      const Center(
+        child: Text(
+          "Afficher le logo",
+          style: TextStyle(fontSize: 20),
+        ),
+      ),
+      Center(
+        child: Switch(
+          value: true,
+          onChanged: (bool value) {},
+        ),
+      ),
+    ])
   ];
 }

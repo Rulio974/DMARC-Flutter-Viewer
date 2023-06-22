@@ -33,5 +33,7 @@ const Color hqYellowActivated = Color(0xfffbf4dc);
 
 var chartFont = GoogleFonts.ubuntu();
 var tabFont = GoogleFonts.ubuntu(color: Colors.white);
+var logo_network =
+    'https://buylandingpagesdesign.com/wp-content/uploads/2017/01/logo-1.png';
 
 const int delayTime = 0;
