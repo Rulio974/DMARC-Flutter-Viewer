@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:motion_toast/motion_toast.dart';
+import 'package:motion_toast/resources/arrays.dart';
 import 'header_tab.dart';
 import '../config/pick_file.dart';
 import '../tabs/tab_help.dart';
@@ -24,7 +26,7 @@ class _TabsState extends State<Tabs> {
             showDialog(
                 context: context,
                 builder: (BuildContext context) {
-                  return ParamDialog();
+                  return const ParamDialog();
                 });
           },
           icone: Icon(
@@ -40,7 +42,7 @@ class _TabsState extends State<Tabs> {
             showDialog(
                 context: context,
                 builder: (BuildContext context) {
-                  return HelpDialog();
+                  return const HelpDialog();
                 });
           },
           icone: Icon(
@@ -52,8 +54,22 @@ class _TabsState extends State<Tabs> {
         ),
         const Expanded(child: SizedBox()),
         HeaderTab(
-          tabFunction: () {
-            uploadFile();
+          tabFunction: () async {
+            var succes = await uploadFile();
+            setState(() {});
+            if (succes == true) {
+              // ignore: use_build_context_synchronously
+              MotionToast(
+                icon: Icons.check_circle,
+                primaryColor: const Color(0xff6fcf97),
+                secondaryColor: Colors.white,
+                backgroundType: BackgroundType.solid,
+                title: const Text('Succès !'),
+                description: const Text("Le rapport à été ajouté avec succès"),
+                displayBorder: true,
+                displaySideBar: false,
+              ).show(context);
+            }
           },
           icone: Icon(
             Icons.arrow_circle_down_outlined,

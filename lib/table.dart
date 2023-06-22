@@ -3,10 +3,12 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:motion_toast/resources/arrays.dart';
 import 'package:pluto_grid/pluto_grid.dart';
 import 'package:http/http.dart' as http;
 import 'config/fetch_data.dart';
 import 'widgets/tabs.dart';
+import 'package:motion_toast/motion_toast.dart';
 
 import 'main.dart';
 
@@ -128,6 +130,18 @@ class _DmarcTableState extends State<DmarcTable> {
                                     );
                                     setState(() {
                                       fetchData();
+
+                                      MotionToast(
+                                        icon: Icons.check_circle,
+                                        primaryColor: const Color(0xff6fcf97),
+                                        secondaryColor: Colors.white,
+                                        backgroundType: BackgroundType.solid,
+                                        title: const Text('Succès !'),
+                                        description: const Text(
+                                            "L'entrée à été traitée avec succès"),
+                                        displayBorder: true,
+                                        displaySideBar: false,
+                                      ).show(context);
                                     });
                                   },
                                 ).catchError(

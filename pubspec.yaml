@@ -43,6 +43,7 @@ dependencies:
   adaptive_theme: ^3.2.1
   shared_preferences: ^2.1.2
   provider: ^6.0.5
+  motion_toast: ^2.6.8
 
 dev_dependencies:
   flutter_test:

@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import '../config/const_var.dart';
 
 class HeaderTab extends StatelessWidget {
-  Icon icone;
-  String title;
+  final Icon icone;
+  final String title;
   final void Function() tabFunction;
 
-  HeaderTab({
+  const HeaderTab({
     super.key,
     required this.icone,
     required this.title,
@@ -43,23 +43,19 @@ class HeaderTab extends StatelessWidget {
               crossAxisAlignment: WrapCrossAlignment.center,
               alignment: WrapAlignment.spaceAround,
               children: [
-                Container(
-                  child: FittedBox(
-                    fit: BoxFit.contain,
-                    child: Padding(
-                      padding: EdgeInsets.only(right: 20),
-                      child: icone,
-                    ),
+                FittedBox(
+                  fit: BoxFit.contain,
+                  child: Padding(
+                    padding: const EdgeInsets.only(right: 20),
+                    child: icone,
                   ),
                 ),
-                Container(
-                  child: FittedBox(
-                    fit: BoxFit.contain,
-                    child: Text(
-                      title,
-                      style: TextStyle(
-                        color: Theme.of(context).hintColor,
-                      ),
+                FittedBox(
+                  fit: BoxFit.contain,
+                  child: Text(
+                    title,
+                    style: TextStyle(
+                      color: Theme.of(context).hintColor,
                     ),
                   ),
                 ),

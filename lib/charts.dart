@@ -26,22 +26,20 @@ class ChartsState extends State<Charts> {
     var lenght = dataReturn()[0];
     var count = dataReturn()[1];
     return Expanded(
-        child: Container(
-      child:
-          Column(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
-        Number(
-          data: lenght.toString(),
-          text: "Entrées à traiter",
-        ),
-        Number(
-          data: widget.count.toString(),
-          text: "Rapports ajoutés",
-        ),
-        Number(
-          data: count.toString(),
-          text: "Entrées en échecs",
-        ),
-      ]),
-    ));
+        child:
+            Column(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
+      Number(
+        data: lenght.toString(),
+        text: "Entrées à traiter",
+      ),
+      Number(
+        data: widget.count.toString(),
+        text: "Rapports ajoutés",
+      ),
+      Number(
+        data: count.toString(),
+        text: "Entrées en échecs",
+      ),
+    ]));
   }
 }

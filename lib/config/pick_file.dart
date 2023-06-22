@@ -6,7 +6,7 @@ import 'package:http_parser/http_parser.dart';
 import 'const_var.dart';
 import 'url_path_private.dart';
 
-void uploadFile() async {
+Future<bool?> uploadFile() async {
   // Sélectionner le fichier
   FilePickerResult? result =
       await FilePicker.platform.pickFiles(withData: true);
@@ -31,7 +31,9 @@ void uploadFile() async {
     var response = await request.send();
 
     if (response.statusCode == 200) {
-      print('Uploaded!');
+      return true;
     }
+    return false;
   }
+  return null;
 }
