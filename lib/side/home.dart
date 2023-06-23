@@ -1,10 +1,8 @@
-import 'package:dmarc_flutter/side/pages/charts.dart';
 import 'package:dmarc_flutter/config/fetch_data.dart';
 import 'package:flutter/material.dart';
 import 'package:easy_sidemenu/easy_sidemenu.dart';
-import 'package:pluto_grid/pluto_grid.dart';
 import '../error_snapshot.dart';
-import 'pages/table.dart';
+import 'side_list.dart';
 
 class SideHomePage extends StatefulWidget {
   // final SharedPreferences prefs;
@@ -61,19 +59,15 @@ class SideHomePageState extends State<SideHomePage> {
                   items: [
                     SideMenuItem(
                       priority: 0,
-                      title: 'Dashboard',
+                      title: 'Table DMARC',
                       onTap: (index, _) {
                         sideMenu.changePage(index);
                       },
                       icon: const Icon(Icons.home),
-                      badgeContent: const Text(
-                        '3',
-                        style: TextStyle(color: Colors.white),
-                      ),
                     ),
                     SideMenuItem(
                       priority: 1,
-                      title: 'Settings',
+                      title: 'Métriques',
                       onTap: (index, _) {
                         sideMenu.changePage(index);
                       },
@@ -81,29 +75,9 @@ class SideHomePageState extends State<SideHomePage> {
                     ),
                   ],
                 ),
-                Expanded(
-                  child: PageView(
-                    controller: pageController,
-                    children: [
-                      Flex(
-                        direction: Axis.horizontal,
-                        children: [
-                          DmarcTable(
-                            rows: snapshot.data![0] as List<PlutoRow>,
-                          ),
-                        ],
-                      ),
-                      Flex(
-                        direction: Axis.horizontal,
-                        children: [
-                          Charts(
-                            rows: snapshot.data![0] as List<PlutoRow>,
-                            count: snapshot.data![1] as int,
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
+                SideList(
+                  pageController: pageController,
+                  snapshot: snapshot,
                 ),
               ],
             );
@@ -118,10 +92,6 @@ class SideHomePageState extends State<SideHomePage> {
               reload: reload,
             );
           }
-          return ErrorSnap(
-            error: "No Data",
-            reload: reload,
-          );
         }),
       ),
     );
