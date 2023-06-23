@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
-import '../config/get_icone.dart';
+import '../../config/get_icone.dart';
 
 class HelpDialog extends StatefulWidget {
   const HelpDialog({super.key});

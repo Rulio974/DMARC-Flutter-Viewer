@@ -3,12 +3,13 @@ import 'package:pluto_grid/pluto_grid.dart';
 import 'config/const_var.dart';
 import 'config/fetch_data.dart';
 import 'config/theme_notifier.dart';
-import 'widgets/error_snapshot.dart';
+import 'error_snapshot.dart';
 
-import 'table.dart';
-import 'charts.dart';
+import 'classic/table.dart';
+import 'classic/charts.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'side/home.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -43,7 +44,7 @@ class MyApp extends StatelessWidget {
       theme: themeNotifier.darkTheme
           ? ThemeClass.darkTheme
           : ThemeClass.lightTheme,
-      home: HomePage(),
+      home: SideHomePage(),
     );
   }
 }

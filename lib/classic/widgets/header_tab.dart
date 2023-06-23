@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../config/const_var.dart';
+import '../../config/const_var.dart';
 
 class HeaderTab extends StatelessWidget {
   final Icon icone;

@@ -6,15 +6,15 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:motion_toast/resources/arrays.dart';
 import 'package:pluto_grid/pluto_grid.dart';
 import 'package:http/http.dart' as http;
-import 'config/fetch_data.dart';
+import '../config/fetch_data.dart';
 import 'widgets/tabs.dart';
 import 'package:motion_toast/motion_toast.dart';
 
-import 'main.dart';
+import '../main.dart';
 
-import 'navigator/noAnimation.dart';
+import '../navigator/noAnimation.dart';
 
-import 'config/columns_config.dart';
+import '../config/columns_config.dart';
 
 class DmarcTable extends StatefulWidget {
   final List<PlutoRow>? rows;

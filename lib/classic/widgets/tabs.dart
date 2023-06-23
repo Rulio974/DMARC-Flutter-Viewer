@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:motion_toast/motion_toast.dart';
 import 'package:motion_toast/resources/arrays.dart';
 import 'header_tab.dart';
-import '../config/pick_file.dart';
+import '../../config/pick_file.dart';
 import '../tabs/tab_help.dart';
 import '../tabs/tab_params.dart';
 
