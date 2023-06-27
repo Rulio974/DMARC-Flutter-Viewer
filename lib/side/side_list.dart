@@ -1,4 +1,5 @@
 import 'package:dmarc_flutter/side/pages/charts.dart';
+import 'package:dmarc_flutter/side/pages/params.dart';
 import 'package:dmarc_flutter/side/pages/table.dart';
 import 'package:flutter/material.dart';
 import 'package:pluto_grid/pluto_grid.dart';
@@ -37,6 +38,12 @@ class SideListState extends State<SideList> {
                 rows: widget.snapshot.data![0] as List<PlutoRow>,
                 count: widget.snapshot.data![1] as int,
               ),
+            ],
+          ),
+          Flex(
+            direction: Axis.horizontal,
+            children: const [
+              Param(),
             ],
           ),
         ],

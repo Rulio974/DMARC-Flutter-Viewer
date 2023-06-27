@@ -1,6 +1,9 @@
 import 'package:dmarc_flutter/config/fetch_data.dart';
 import 'package:flutter/material.dart';
 import 'package:easy_sidemenu/easy_sidemenu.dart';
+import 'package:motion_toast/motion_toast.dart';
+import 'package:motion_toast/resources/arrays.dart';
+import '../config/pick_file.dart';
 import '../error_snapshot.dart';
 import 'side_list.dart';
 
@@ -68,6 +71,44 @@ class SideHomePageState extends State<SideHomePage> {
                     SideMenuItem(
                       priority: 1,
                       title: 'Métriques',
+                      onTap: (index, _) {
+                        sideMenu.changePage(index);
+                      },
+                      icon: const Icon(Icons.area_chart_sharp),
+                    ),
+                    SideMenuItem(
+                      priority: 2,
+                      title: 'Ajouter un rapport',
+                      onTap: (index, _) async {
+                        var succes = await uploadFile();
+                        if (succes == true) {
+                          // ignore: use_build_context_synchronously
+                          MotionToast(
+                            icon: Icons.check_circle,
+                            primaryColor: const Color(0xff6fcf97),
+                            secondaryColor: Colors.white,
+                            backgroundType: BackgroundType.solid,
+                            title: const Text('Succès !'),
+                            description: const Text(
+                                "Le rapport à été ajouté avec succès"),
+                            displayBorder: true,
+                            displaySideBar: false,
+                          ).show(context);
+                        }
+                      },
+                      icon: const Icon(Icons.arrow_circle_down_outlined),
+                    ),
+                    SideMenuItem(
+                      priority: 3,
+                      title: 'Aide',
+                      onTap: (index, _) {
+                        sideMenu.changePage(index);
+                      },
+                      icon: const Icon(Icons.help),
+                    ),
+                    SideMenuItem(
+                      priority: 4,
+                      title: 'Paramètres',
                       onTap: (index, _) {
                         sideMenu.changePage(index);
                       },

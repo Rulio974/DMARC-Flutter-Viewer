@@ -11,6 +11,8 @@ Future<bool?> uploadFile() async {
   FilePickerResult? result =
       await FilePicker.platform.pickFiles(withData: true);
 
+  if (result == null) {}
+
   if (result != null) {
     Uint8List fileBytes = result.files.single.bytes!;
     String fileName = result.files.single.name;

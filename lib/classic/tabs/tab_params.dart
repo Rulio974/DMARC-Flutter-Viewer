@@ -19,6 +19,7 @@ class _ParamDialogState extends State<ParamDialog> {
   late TextEditingController ipController = TextEditingController();
   // late FocusNode ipFocusNode;
   bool _isVisible = true;
+  bool _isSidemenue = false;
 
   @override
   void initState() {
@@ -85,7 +86,18 @@ class _ParamDialogState extends State<ParamDialog> {
                   },
                 ),
               ),
-            ])
+            ]),
+            TableRow(children: [
+              Center(
+                child: SwitchListTile(
+                  title: const Text("Menu sur le côté"),
+                  value: _isVisible,
+                  onChanged: (newValue) {
+                    _updateVisibilityPreference(newValue);
+                  },
+                ),
+              ),
+            ]),
           ],
         ),
       ),

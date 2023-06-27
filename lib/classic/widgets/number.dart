@@ -6,66 +6,75 @@ class Number extends StatefulWidget {
   final String text;
 
   const Number({
-    super.key,
+    Key? key,
     required this.data,
     required this.text,
-  });
+  }) : super(key: key);
 
   @override
-  State<Number> createState() => NumberState();
+  _NumberState createState() => _NumberState();
 }
 
-class NumberState extends State<Number> {
+class _NumberState extends State<Number> {
+  bool isHovered = false;
+
   @override
   Widget build(BuildContext context) {
-    Size screenSize = MediaQuery.of(context).size;
+    var height = MediaQuery.of(context).size.height;
+    var containerSize = isHovered ? height / 4 : height / 5;
 
-    double width = screenSize.width;
-    double height = screenSize.height;
-
-    return Container(
-      decoration: BoxDecoration(
-        color: Theme.of(context).secondaryHeaderColor,
-        borderRadius: BorderRadius.circular(10),
-        boxShadow: [
-          BoxShadow(
-            color: Theme.of(context).shadowColor,
-            spreadRadius: 5,
-            blurRadius: 7,
-            offset: const Offset(0, 3),
-          )
-        ],
-      ),
-      height: height / 5,
-      width: height / 5,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          Expanded(
-            child: FittedBox(
-              fit: BoxFit.contain,
-              child: Padding(
-                padding: const EdgeInsets.only(top: 5),
-                child: Text(
-                  widget.data,
-                  style: chartFont,
+    return MouseRegion(
+      onEnter: (event) => setState(() {
+        isHovered = true;
+      }),
+      onExit: (event) => setState(() {
+        isHovered = false;
+      }),
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 200),
+        height: containerSize,
+        width: containerSize,
+        decoration: BoxDecoration(
+          color: Theme.of(context).secondaryHeaderColor,
+          borderRadius: BorderRadius.circular(10),
+          boxShadow: [
+            BoxShadow(
+              color: Theme.of(context).shadowColor,
+              spreadRadius: 5,
+              blurRadius: 7,
+              offset: const Offset(0, 3),
+            )
+          ],
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Expanded(
+              child: FittedBox(
+                fit: BoxFit.contain,
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 5),
+                  child: Text(
+                    widget.data,
+                    style: chartFont, // Remplacez par votre style de texte
+                  ),
                 ),
               ),
             ),
-          ),
-          Expanded(
-            child: FittedBox(
-              fit: BoxFit.contain,
-              child: Padding(
-                padding: const EdgeInsets.only(left: 4, right: 4),
-                child: Text(
-                  widget.text,
-                  style: chartFont,
+            Expanded(
+              child: FittedBox(
+                fit: BoxFit.contain,
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 4, right: 4),
+                  child: Text(
+                    widget.text,
+                    style: chartFont, // Remplacez par votre style de texte
+                  ),
                 ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
