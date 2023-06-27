@@ -33,7 +33,7 @@ lib/config/url_path_private.dart
 .pub/
 /build/
 
-side/
+lib/side/
 
 # Symbolication related
 app.*.symbols
