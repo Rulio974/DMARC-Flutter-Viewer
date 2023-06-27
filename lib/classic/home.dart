@@ -4,8 +4,8 @@ import 'package:dmarc_flutter/config/const_var.dart';
 import 'package:dmarc_flutter/error_snapshot.dart';
 import 'package:flutter/material.dart';
 import 'package:pluto_grid/pluto_grid.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:lottie/lottie.dart';
+import 'package:animated_text_kit/animated_text_kit.dart';
 
 import '../config/fetch_data.dart';
 
@@ -42,11 +42,7 @@ class _ClassicHomePageState extends State<ClassicHomePage> {
       ]),
       builder: ((BuildContext context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return Center(child: Lottie.asset("load.json")
-              // child: SpinKitDoubleBounce(
-              //   color: Colors.blue,
-              // ),
-              );
+          return Center(child: Lottie.asset("load.json"));
         } else if (snapshot.hasData) {
           return Row(
             children: [

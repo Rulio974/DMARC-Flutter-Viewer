@@ -1,8 +1,11 @@
 // ignore_for_file: library_private_types_in_public_api
 
+import 'dart:convert';
+
 import 'package:dmarc_flutter/config/const_var.dart';
 import 'package:dmarc_flutter/config/theme_notifier.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:motion_toast/motion_toast.dart';
 import 'package:motion_toast/resources/arrays.dart';
@@ -54,13 +57,58 @@ class _ParamDialogState extends State<ParamDialog> {
     });
   }
 
-  void deleteAllData() async {
-    var response = await http.post(url.resolve('/deleteAll'));
+  void sentDeleteRequest() async {
+    var response = await http.post(url.resolve('/requestDelete'));
 
     if (response.statusCode == 200) {
       print('Toutes les données ont été supprimées avec succès');
     } else {
       print('Échec de la suppression des données');
+    }
+  }
+
+  Future<void> confirmDeleteRequest(String code) async {
+    var response = await http.post(
+      url.resolve('/confirmDelete'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(<String, int>{
+        'confirmationCode': int.parse(code),
+      }),
+    );
+
+    if (response.statusCode == 200) {
+      // ignore: use_build_context_synchronously
+      MotionToast(
+        icon: Icons.check_circle,
+        primaryColor: const Color(0xff6fcf97),
+        secondaryColor: Colors.white,
+        backgroundType: BackgroundType.solid,
+        title: const Text('Succès !'),
+        description:
+            const Text("L'ensemble des entrées ont été supprimées (bêta)!"),
+        displayBorder: true,
+        displaySideBar: false,
+      ).show(context);
+    } else {
+      // ignore: use_build_context_synchronously
+      MotionToast(
+        icon: Icons.error_outline,
+        primaryColor: Colors.red,
+        secondaryColor: Colors.white,
+        backgroundType: BackgroundType.solid,
+        title: const Text(
+          'Echec !',
+          style: TextStyle(color: Colors.white),
+        ),
+        description: const Text(
+          "L'ensemble des entrées n'ont pas été supprimées",
+          style: TextStyle(color: Colors.white),
+        ),
+        displayBorder: true,
+        displaySideBar: false,
+      ).show(context);
     }
   }
 
@@ -96,7 +144,8 @@ class _ParamDialogState extends State<ParamDialog> {
             TableRow(children: [
               Center(
                 child: SwitchListTile(
-                  title: const Text("Dark Mode"),
+                  activeColor: Theme.of(context).primaryColor,
+                  title: const Text("Dark Mode (bêta)"),
                   value: Provider.of<ThemeNotifier>(context).darkTheme,
                   onChanged: (val) {
                     Provider.of<ThemeNotifier>(context, listen: false)
@@ -108,7 +157,8 @@ class _ParamDialogState extends State<ParamDialog> {
             TableRow(children: [
               Center(
                 child: SwitchListTile(
-                  title: const Text("Afficher le logo"),
+                  activeColor: Theme.of(context).primaryColor,
+                  title: const Text("Afficher votre logo"),
                   value: _isVisible,
                   onChanged: (newValue) {
                     _updateVisibilityPreference(newValue);
@@ -138,8 +188,65 @@ class _ParamDialogState extends State<ParamDialog> {
             TableRow(children: [
               TextButton(
                   onLongPress: () {
-                    print("this is it");
-                    deleteAllData();
+                    sentDeleteRequest();
+                    final TextEditingController controller =
+                        TextEditingController();
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: const Text('Entrez le code'),
+                          content: TextField(
+                            inputFormatters: [
+                              FilteringTextInputFormatter.digitsOnly,
+                              LengthLimitingTextInputFormatter(15),
+                            ],
+                            controller: controller,
+                            decoration: const InputDecoration(
+                              border: OutlineInputBorder(),
+                              hintText: 'Entrez le code ici',
+                              hintStyle: TextStyle(color: Colors.grey),
+                            ),
+                            style: const TextStyle(
+                                color: Colors.black, fontSize: 18),
+                          ),
+                          actions: [
+                            TextButton(
+                              child: const Text('Annuler'),
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                            ),
+                            TextButton(
+                              child: const Text('Valider'),
+                              onPressed: () {
+                                if (controller.text == "") {
+                                  MotionToast(
+                                    icon: Icons.error_outline,
+                                    primaryColor: Colors.red,
+                                    secondaryColor: Colors.white,
+                                    backgroundType: BackgroundType.solid,
+                                    title: const Text(
+                                      'Echec !',
+                                      style: TextStyle(color: Colors.white),
+                                    ),
+                                    description: const Text(
+                                      "Vous ne pouvez pas laisser ce champ vide",
+                                      style: TextStyle(color: Colors.white),
+                                    ),
+                                    displayBorder: true,
+                                    displaySideBar: false,
+                                  ).show(context);
+                                } else {
+                                  confirmDeleteRequest(controller.text);
+                                }
+                                Navigator.of(context).pop();
+                              },
+                            ),
+                          ],
+                        );
+                      },
+                    );
                   },
                   onPressed: () {
                     MotionToast(
