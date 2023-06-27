@@ -4,8 +4,12 @@ import 'package:dmarc_flutter/config/const_var.dart';
 import 'package:dmarc_flutter/config/theme_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:motion_toast/motion_toast.dart';
+import 'package:motion_toast/resources/arrays.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:http/http.dart' as http;
+import '../../config/url_path_private.dart';
 
 import '../charts.dart';
 
@@ -48,6 +52,16 @@ class _ParamDialogState extends State<ParamDialog> {
     setState(() {
       _isVisible = newValue;
     });
+  }
+
+  void deleteAllData() async {
+    var response = await http.post(url.resolve('/deleteAll'));
+
+    if (response.statusCode == 200) {
+      print('Toutes les données ont été supprimées avec succès');
+    } else {
+      print('Échec de la suppression des données');
+    }
   }
 
   @override
@@ -116,6 +130,37 @@ class _ParamDialogState extends State<ParamDialog> {
                 ),
               ),
             ]),
+            TableRow(children: [
+              SizedBox(
+                height: height / 30,
+              )
+            ]),
+            TableRow(children: [
+              TextButton(
+                  onLongPress: () {
+                    print("this is it");
+                    deleteAllData();
+                  },
+                  onPressed: () {
+                    MotionToast(
+                      icon: Icons.error_outline,
+                      primaryColor: Colors.red,
+                      secondaryColor: Colors.white,
+                      backgroundType: BackgroundType.solid,
+                      title: const Text(
+                        'Echec !',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                      description: const Text(
+                        "Vous devez presser le boutton plus longtemps",
+                        style: TextStyle(color: Colors.white),
+                      ),
+                      displayBorder: true,
+                      displaySideBar: false,
+                    ).show(context);
+                  },
+                  child: const Text("Supprimer les entrées"))
+            ])
           ],
         ),
       ),

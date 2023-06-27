@@ -1,5 +1,6 @@
 import 'package:dmarc_flutter/config/const_var.dart';
 import 'package:flutter/material.dart';
+import 'package:countup/countup.dart';
 
 class Number extends StatefulWidget {
   final String data;
@@ -53,12 +54,17 @@ class _NumberState extends State<Number> {
               child: FittedBox(
                 fit: BoxFit.contain,
                 child: Padding(
-                  padding: const EdgeInsets.only(top: 5),
-                  child: Text(
-                    widget.data,
-                    style: chartFont, // Remplacez par votre style de texte
-                  ),
-                ),
+                    padding: const EdgeInsets.only(top: 5),
+                    child: Countup(
+                      begin: 0,
+                      end: double.parse(widget.data),
+                      duration: const Duration(seconds: 2),
+                    )
+                    // child: Text(
+                    //   widget.data,
+                    //   style: chartFont, // Remplacez par votre style de texte
+                    // ),
+                    ),
               ),
             ),
             Expanded(
