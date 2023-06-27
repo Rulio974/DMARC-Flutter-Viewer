@@ -3,6 +3,7 @@
 import 'package:dmarc_flutter/config/const_var.dart';
 import 'package:dmarc_flutter/config/theme_notifier.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -66,6 +67,20 @@ class _ParamDialogState extends State<ParamDialog> {
           children: [
             TableRow(children: [
               Center(
+                child: Text(
+                  "Paramètres",
+                  style: GoogleFonts.ubuntu(fontSize: 30),
+                ),
+              )
+            ]),
+            const TableRow(children: [
+              Divider(
+                height: 20,
+                color: Colors.black,
+              ),
+            ]),
+            TableRow(children: [
+              Center(
                 child: SwitchListTile(
                   title: const Text("Dark Mode"),
                   value: Provider.of<ThemeNotifier>(context).darkTheme,
@@ -87,14 +102,17 @@ class _ParamDialogState extends State<ParamDialog> {
                 ),
               ),
             ]),
-            TableRow(children: [
+            const TableRow(children: [
               Center(
                 child: SwitchListTile(
-                  title: const Text("Menu sur le côté"),
-                  value: _isVisible,
-                  onChanged: (newValue) {
-                    _updateVisibilityPreference(newValue);
-                  },
+                  title: Text("Menu sur le côté (En cours de développement)"),
+                  value: false,
+                  onChanged: null,
+                  // value: _isVisible,
+
+                  // onChanged: (newValue) {
+                  //   _updateVisibilityPreference(newValue);
+                  // },
                 ),
               ),
             ]),
