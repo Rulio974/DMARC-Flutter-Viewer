@@ -1,5 +1,6 @@
 // ignore_for_file: deprecated_member_use
 
+import 'package:dmarc_flutter/classic/home.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -10,22 +11,22 @@ import '../config/fetch_data.dart';
 import 'widgets/tabs.dart';
 import 'package:motion_toast/motion_toast.dart';
 
-import '../main.dart';
+// import '../main.dart';
 
 import '../navigator/noAnimation.dart';
 
 import '../config/columns_config.dart';
 
-class DmarcTable extends StatefulWidget {
+class ClassicDmarcTable extends StatefulWidget {
   final List<PlutoRow>? rows;
 
-  const DmarcTable({super.key, required this.rows});
+  const ClassicDmarcTable({super.key, required this.rows});
 
   @override
-  State<DmarcTable> createState() => _DmarcTableState();
+  State<ClassicDmarcTable> createState() => _ClassicDmarcTableState();
 }
 
-class _DmarcTableState extends State<DmarcTable> {
+class _ClassicDmarcTableState extends State<ClassicDmarcTable> {
   String filter = "";
 
   @override
@@ -126,7 +127,8 @@ class _DmarcTableState extends State<DmarcTable> {
                                     Navigator.push(
                                       context,
                                       NoAnimationPageRoute(
-                                          builder: (context) => HomePage()),
+                                          builder: (context) =>
+                                              ClassicHomePage()),
                                     );
                                     setState(() {
                                       fetchData();

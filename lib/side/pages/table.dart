@@ -11,6 +11,7 @@ import '../../classic/widgets/tabs.dart';
 import 'package:motion_toast/motion_toast.dart';
 
 import '../../main.dart';
+import '../home.dart';
 
 import '../../navigator/noAnimation.dart';
 
@@ -125,7 +126,8 @@ class _DmarcTableState extends State<DmarcTable> {
                                       Navigator.push(
                                         context,
                                         NoAnimationPageRoute(
-                                            builder: (context) => HomePage()),
+                                            builder: (context) =>
+                                                SideHomePage()),
                                       );
                                       setState(() {
                                         fetchData();
