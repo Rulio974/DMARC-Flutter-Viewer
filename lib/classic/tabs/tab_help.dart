@@ -65,34 +65,40 @@ class _HelpDialogState extends State<HelpDialog> {
                       _isHovering[index] = false;
                     });
                   },
-                  child: AnimatedContainer(
-                    duration: const Duration(milliseconds: 230),
-                    margin: _isHovering[index]
-                        ? const EdgeInsets.all(8)
-                        : const EdgeInsets.all(10),
-                    padding: _isHovering[index]
-                        ? const EdgeInsets.all(7)
-                        : const EdgeInsets.all(5),
-                    decoration: BoxDecoration(
-                      color: Theme.of(context).primaryColor,
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Text(
-                          helpData[index]?['short_text'],
-                          textAlign: TextAlign.center,
-                          style: GoogleFonts.ubuntu(),
-                        ),
-                        FittedBox(
-                          fit: BoxFit.contain,
-                          child: Icon(
-                            getIconForName(helpData[index]?['icon']!),
+                  child: GestureDetector(
+                    child: AnimatedContainer(
+                      duration: const Duration(milliseconds: 230),
+                      margin: _isHovering[index]
+                          ? const EdgeInsets.all(8)
+                          : const EdgeInsets.all(10),
+                      padding: _isHovering[index]
+                          ? const EdgeInsets.all(7)
+                          : const EdgeInsets.all(5),
+                      decoration: BoxDecoration(
+                        color: Theme.of(context).primaryColor,
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text(
+                            helpData[index]?['short_text'],
+                            textAlign: TextAlign.center,
+                            style:
+                                GoogleFonts.ubuntu(fontWeight: FontWeight.bold),
                           ),
-                        ),
-                      ],
+                          FittedBox(
+                            fit: BoxFit.contain,
+                            child: Icon(
+                              getIconForName(
+                                helpData[index]?['icon']!,
+                              ),
+                              size: 30,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 );
