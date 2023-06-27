@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:motion_toast/motion_toast.dart';
 import 'package:motion_toast/resources/arrays.dart';
+import 'package:flutter_animated_dialog/flutter_animated_dialog.dart';
+
 import 'header_tab.dart';
 import '../../config/pick_file.dart';
 import '../tabs/tab_help.dart';
@@ -23,11 +25,16 @@ class _TabsState extends State<Tabs> {
         const Expanded(child: SizedBox()),
         HeaderTab(
           tabFunction: () {
-            showDialog(
-                context: context,
-                builder: (BuildContext context) {
-                  return const ParamDialog();
-                });
+            showAnimatedDialog(
+              context: context,
+              animationType: DialogTransitionType.slideFromTop,
+              curve: Curves.fastOutSlowIn,
+              duration: Duration(milliseconds: 800),
+              barrierDismissible: true,
+              builder: (BuildContext context) {
+                return const ParamDialog();
+              },
+            );
           },
           icone: Icon(
             Icons.settings,
@@ -39,7 +46,11 @@ class _TabsState extends State<Tabs> {
         const Expanded(child: SizedBox()),
         HeaderTab(
           tabFunction: () {
-            showDialog(
+            showAnimatedDialog(
+                animationType: DialogTransitionType.slideFromTop,
+                curve: Curves.fastOutSlowIn,
+                duration: Duration(milliseconds: 800),
+                barrierDismissible: true,
                 context: context,
                 builder: (BuildContext context) {
                   return const HelpDialog();

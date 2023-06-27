@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import '../../config/get_icone.dart';
 
 class HelpDialog extends StatefulWidget {
@@ -13,6 +14,7 @@ class HelpDialog extends StatefulWidget {
 class _HelpDialogState extends State<HelpDialog> {
   List<String> sharedNumber = [];
   List<dynamic> helpData = [];
+  late List<bool> _isHovering;
 
   @override
   void initState() {
@@ -20,6 +22,7 @@ class _HelpDialogState extends State<HelpDialog> {
     readJsonData('help.json').then((data) {
       setState(() {
         helpData = data;
+        _isHovering = List.filled(helpData.length, false);
       });
     });
   }
@@ -35,11 +38,12 @@ class _HelpDialogState extends State<HelpDialog> {
 
     double width = screenSize.width;
     double height = screenSize.height;
+
     return Dialog(
       child: Container(
         height: height / 2,
         width: width / 2,
-        color: Colors.blue,
+        color: Colors.white,
         child: Column(
           children: [
             GridView.builder(
@@ -50,18 +54,46 @@ class _HelpDialogState extends State<HelpDialog> {
                 childAspectRatio: 1,
               ),
               itemBuilder: (BuildContext context, int index) {
-                return Container(
-                  margin: const EdgeInsets.all(10),
-                  decoration: BoxDecoration(
-                    color: Colors.red,
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: Column(
-                    children: [
-                      Text(helpData[index]['text']),
-                      Text(helpData[index]["icon"]),
-                      Icon(getIconForName(helpData[index]['icon'])),
-                    ],
+                return MouseRegion(
+                  onEnter: (PointerEvent details) {
+                    setState(() {
+                      _isHovering[index] = true;
+                    });
+                  },
+                  onExit: (PointerEvent details) {
+                    setState(() {
+                      _isHovering[index] = false;
+                    });
+                  },
+                  child: AnimatedContainer(
+                    duration: const Duration(milliseconds: 230),
+                    margin: _isHovering[index]
+                        ? const EdgeInsets.all(8)
+                        : const EdgeInsets.all(10),
+                    padding: _isHovering[index]
+                        ? const EdgeInsets.all(7)
+                        : const EdgeInsets.all(5),
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).primaryColor,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text(
+                          helpData[index]?['short_text'],
+                          textAlign: TextAlign.center,
+                          style: GoogleFonts.ubuntu(),
+                        ),
+                        FittedBox(
+                          fit: BoxFit.contain,
+                          child: Icon(
+                            getIconForName(helpData[index]?['icon']!),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 );
               },

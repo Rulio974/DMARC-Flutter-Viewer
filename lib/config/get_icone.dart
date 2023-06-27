@@ -6,6 +6,10 @@ IconData getIconForName(String iconName) {
       {
         return Icons.facebook;
       }
+    case 'add':
+      {
+        return Icons.arrow_circle_down;
+      }
 
     default:
       {

@@ -10,6 +10,8 @@ import 'package:http/http.dart' as http;
 import '../config/fetch_data.dart';
 import 'widgets/tabs.dart';
 import 'package:motion_toast/motion_toast.dart';
+import 'package:flutter_animated_dialog/flutter_animated_dialog.dart';
+import '../config/url_path_private.dart';
 
 // import '../main.dart';
 
@@ -87,13 +89,62 @@ class _ClassicDmarcTableState extends State<ClassicDmarcTable> {
                   rows: widget.rows!,
                   // rows: snapshot.data!,
                   onRowDoubleTap: (event) {
-                    showDialog(
+                    showAnimatedDialog(
+                      animationType: DialogTransitionType.fade,
+                      curve: Curves.fastOutSlowIn,
+                      duration: const Duration(milliseconds: 300),
+                      barrierDismissible: true,
                       context: context,
                       builder: (BuildContext context) {
                         return AlertDialog(
                           title: const Text('Confirmer la suppression'),
-                          content: const Text(
-                              'Voulez vous vraiment supprimer cette entrée ?'),
+                          content: Container(
+                            height: height / 10,
+                            width: width / 5,
+                            child: SingleChildScrollView(
+                              child: Column(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  SizedBox(
+                                    height: height / 35,
+                                  ),
+                                  const Text(
+                                      'Voulez vous vraiment supprimer cette entrée ? '),
+                                  Table(
+                                    children: [
+                                      TableRow(children: [
+                                        Text("IP"),
+                                        Text(
+                                            "${event.row.cells['ip_field']?.value}"),
+                                      ]),
+                                      TableRow(children: [
+                                        Text("Nombre d'occurences"),
+                                        Text(
+                                            "${event.row.cells['rcount_fiel']?.value}"),
+                                      ]),
+                                      TableRow(children: [
+                                        Text("DKIM Domain"),
+                                        Text(
+                                            "${event.row.cells['dkim_fiel']?.value}"),
+                                      ]),
+                                      TableRow(children: [
+                                        Text("SPF Domain"),
+                                        Text(
+                                            "${event.row.cells['spf_d_field']?.value}"),
+                                      ]),
+                                      TableRow(children: [
+                                        Text("Expéditeur"),
+                                        Text(
+                                            "${event.row.cells['id_h_fiel']?.value}"),
+                                      ]),
+                                    ],
+                                  )
+                                ],
+                              ),
+                            ),
+                          ),
                           actions: <Widget>[
                             TextButton(
                               style: ButtonStyle(
@@ -112,8 +163,8 @@ class _ClassicDmarcTableState extends State<ClassicDmarcTable> {
                               child: const Text('Supprimer'),
                               onPressed: () {
                                 http
-                                    .delete(Uri.parse(
-                                        'http://82.165.240.99:80/rptrecord/${event.row.cells['id_field']?.value}'))
+                                    .delete(url.resolve(
+                                        '/rptrecord/${event.row.cells['id_field']?.value}'))
                                     .then(
                                   (http.Response response) {
                                     if (kDebugMode) {
