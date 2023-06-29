@@ -2,11 +2,37 @@
     {
         "icon": "add",
         "short_text": "Comment ajouter un rapport ?",
-        "text": "Vous pouvez ajouter un fichier en cliquant sur le boutton `charger`. Vous pourrez alors sélectionner le fichier `.xml` de votre choix.\n Ce dernier sera envoyé à votre serveur (définit dans les paramètres) et sera traité par ce dernier. Enfin, si le fichier est valide, vous pourrez alors voir apparaître les différentes entrées dans le tableau.\n Pour debugger, vous pouvez voir les logs de votre application côté serveur. "
+        "info": [
+            {
+                "title": "1",
+                "text": "1"
+            },
+            {
+                "title": "2",
+                "text": "2"
+            },
+            {
+                "title": "3",
+                "text": "3"
+            }
+        ]
     },
     {
         "icon": "facebook",
         "short_text": "Ceci est un autre texte d'aide",
-        "text": ""
+        "info": [
+            {
+                "title": "",
+                "text": ""
+            },
+            {
+                "title": "",
+                "text": ""
+            },
+            {
+                "title": "",
+                "text": ""
+            }
+        ]
     }
 ]

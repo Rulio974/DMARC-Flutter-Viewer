@@ -36,4 +36,4 @@ var tabFont = GoogleFonts.ubuntu(color: Colors.white);
 var logo_network =
     'https://buylandingpagesdesign.com/wp-content/uploads/2017/01/logo-1.png';
 
-const int delayTime = 10;
+const int delayTime = 0;

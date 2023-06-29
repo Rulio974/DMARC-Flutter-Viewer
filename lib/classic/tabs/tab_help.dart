@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../config/get_icone.dart';
+import '../widgets/expanded_info.dart';
 
 class HelpDialog extends StatefulWidget {
   const HelpDialog({super.key});
@@ -108,8 +109,9 @@ class _HelpDialogState extends State<HelpDialog> {
                   );
                 },
               )
-            : ExpandedWidget(
+            : ExpandedInfo(
                 data: helpData[selectedIndex!],
+                info: helpData[selectedIndex!]['info'],
                 onExit: () {
                   setState(() {
                     selectedIndex = null;
@@ -117,49 +119,6 @@ class _HelpDialogState extends State<HelpDialog> {
                   });
                 },
               ),
-      ),
-    );
-  }
-}
-
-class ExpandedWidget extends StatelessWidget {
-  final dynamic data;
-  final Function onExit;
-
-  const ExpandedWidget({required this.data, required this.onExit});
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () => onExit(),
-      child: Container(
-        color: Colors.blue,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Text(
-              data?['short_text'],
-              textAlign: TextAlign.center,
-              style: GoogleFonts.ubuntu(fontWeight: FontWeight.bold),
-            ),
-            Text(
-              data?['text'],
-              textAlign: TextAlign.center,
-              style: GoogleFonts.ubuntu(),
-            ),
-            FittedBox(
-              fit: BoxFit.contain,
-              child: Icon(
-                getIconForName(
-                  data?['icon']!,
-                ),
-                color: Colors.amberAccent,
-                size: 30,
-              ),
-            ),
-          ],
-        ),
       ),
     );
   }
